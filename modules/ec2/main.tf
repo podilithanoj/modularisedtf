@@ -1,0 +1,19 @@
+resource "aws_instance" "public" {
+  count = 2
+  ami = var.ami_id
+  instance_type = var.instance_type
+  subnet_id = var.public_subnet_ids[count.index]
+  tags = {
+    Name = "${var.env}-public-${count.index}"
+  }
+}
+
+resource "aws_instance" "private" {
+  count = 2
+  ami = var.ami_id
+  instance_type = var.instance_type
+  subnet_id = var.private_subnet_ids[count.index]
+  tags = {
+    Name = "${var.env}-private-${count.index}"
+  }
+}
